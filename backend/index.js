@@ -32,10 +32,12 @@ app.get("/", (req,res)=>{
 })
 
 app.post("/api/upload",upload.single('image'), async (req,res)=>{
- if (!req.file) {
+  try {
+    if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
- }
-     const result = await new Promise((resolve, reject) => {
+    }
+
+    const result = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         { folder: 'image-share' },
         (error, result) => (error ? reject(error) : resolve(result))
@@ -44,9 +46,13 @@ app.post("/api/upload",upload.single('image'), async (req,res)=>{
 
     const imageUrl = result.secure_url;
     const code = hello();
-     const newImage = await Image.create({ code, imageUrl });
+    const newImage = await Image.create({ code, imageUrl });
+
     res.status(201).json({ code: newImage.code });
-    console.log(newImage)
+  } catch (err) {
+    console.error("UPLOAD ERROR:", err);
+    res.status(500).json({ message: 'Upload failed' });
+  }
 })
 
 app.get("/api/image/:code", async(req,res)=>{
