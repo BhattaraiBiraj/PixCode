@@ -19,6 +19,21 @@ export default function Retrieve(){
     
     }
 
+    const handleDownload = async () =>{
+        const res = await fetch(imageUrl);
+        const blob = await res.blob()
+
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `image-${code}.jpg`;
+         document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(blobUrl);
+    }
+
     return(
         <div>
             <form onSubmit={handleSubmit}>
@@ -29,6 +44,7 @@ export default function Retrieve(){
             {imageUrl && 
                 <div>
                     <img src={imageUrl}></img>
+                    <button onClick={handleDownload}>Download</button>
                 </div>
             }
         </div>
