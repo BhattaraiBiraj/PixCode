@@ -48,7 +48,7 @@ app.post("/api/upload",upload.single('image'), async (req,res)=>{
     const code = hello();
     const newImage = await Image.create({ code, imageUrl });
 
-    res.status(201).json({ code: newImage.code });
+    res.status(201).json({ code: newImage.code});
   } catch (err) {
     console.error("UPLOAD ERROR:", err);
     res.status(500).json({ message: 'Upload failed' });
@@ -57,12 +57,13 @@ app.post("/api/upload",upload.single('image'), async (req,res)=>{
 
 app.get("/api/image/:code", async(req,res)=>{
     let {code} = req.params;
+    code = code.trim();
    const image =  await Image.findOne({code : code});
 
    if(!image){
-   return res.send("enter a  valid code")
+   return res.json({err : "Enter a  valid code"})
    }
 
-   res.status(200).json({ imageUrl: image.imageUrl });
+   res.status(200).json({ imageUrl: image.imageUrl, msg :'Image Found'});
    
 })

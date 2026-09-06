@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar () {
+  const [selectedPage, setSelectedPage]  =useState(0)
+
+  const handleSelectedPage = (index) =>{
+    setSelectedPage(index);
+  }
     return (
         <>
             <nav class="navbar navbar-expand-lg bg-body-tertiary border mb-5">
@@ -12,7 +18,10 @@ export default function Navbar () {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <Link class="nav-link" to="/retrieve"><span>Retrieve</span></Link>
+          <Link class="nav-link" to="/" onClick={()=>handleSelectedPage(0)}><span className={`und ${selectedPage==0? "fixedUnd" : ""}`}>Home</span></Link>
+        </li>
+        <li class="nav-item">
+          <Link class="nav-link" to="/retrieve" onClick={()=>handleSelectedPage(1)}><span className={`und ${selectedPage==1? "fixedUnd" : ""}`}>Retrieve</span></Link>
         </li>
       </ul>
     </div>

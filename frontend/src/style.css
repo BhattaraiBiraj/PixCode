@@ -1,0 +1,141 @@
+.und {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.und::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(40, 156, 66);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s ease;
+}
+
+.und:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+.fixedUnd::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.upload-card {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 32px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+
+
+/* Hide the ugly native input completely */
+.file-input-hidden {
+  display: none;
+}
+
+/* Style the label to look like a button — clicking it opens the file picker */
+.choose-file-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  background: #fff;
+  color: rgb(40, 156, 66);
+  border: 1.5px solid rgb(40, 156, 66);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.choose-file-btn:hover {
+  background: rgb(40, 156, 66);
+  color: #fff;
+}
+
+/* Text showing selected filename */
+.file-name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Primary Upload button */
+.upload-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0;
+  padding: 10px 24px;
+  background: rgb(40, 156, 66);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: rgb(40, 156, 66);
+}
+
+.upload-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+
+.retrieve-input {
+  height: 40px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid green;
+}
+
+/* 
+.retrieve-img-box {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 2px dotted rgb(133, 132, 132);
+  margin: 0 auto;
+} */
+
+.retrieve-img {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.retrieve-img-box {
+  border: 2px dashed grey;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  height: 400px;
+  cursor: pointer;
+  margin: 40px auto;
+}
+
+.download-btn:hover{
+  color: rgb(40, 156, 66);
+   background-color: white;
+  border:1px solid rgb(40, 156, 66);
+}

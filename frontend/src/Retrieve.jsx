@@ -4,18 +4,23 @@ import axios from 'axios';
 export default function Retrieve(){
 
     const [code,setCode] = useState("");
+    const [imageFound, setImageFound] = useState(false)
     const [imageUrl, setImageUrl] = useState("")
+    const [message, setMessage] = useState("")
+    const [error, setError] = useState("")
     
     const handleCode = (e) =>{
         setCode(e.target.value);
+        setImageFound(false)
     }
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-         
         let res = await axios.get(`http://localhost:8080/api/image/${code}`)
-        console.log(res.data.imageUrl)
         setImageUrl(res.data.imageUrl);
+        setImageFound(true)
+        setMessage(res.data.msg)
+        setError(res.data.err)
     
     }
 
@@ -35,16 +40,23 @@ export default function Retrieve(){
     }
 
     return(
-        <div>
+        <div className="upload-card">
             <form onSubmit={handleSubmit}>
-                Enter a code to get : 
-                <input type="text" value={code} onChange={handleCode}/>
-                <button type="submit">Get</button>
+                <label htmlFor="retrieve-input" className="mb-3">Enter code to get image</label>
+                <br />
+                <input type="text" id="retrieve-input" className="retrieve-input" placeholder="eg.  AI6G3K" value={code} onChange={handleCode}/>
+                <div className="mt-3">
+                    {message ? <p>{message}</p> : <p style={{color:"red"}}>{error}</p> }
+                </div>
+                
+                <button type="submit" className="upload-btn" disabled={imageFound}>Get</button>
             </form>
             {imageUrl && 
                 <div>
-                    <img src={imageUrl}></img>
-                    <button onClick={handleDownload}>Download</button>
+                    <div className="retrieve-img-box">
+                    <img src={imageUrl} className="retrieve-img"></img>
+                    </div>
+                    <button onClick={handleDownload} className="upload-btn download-btn">Download</button>
                 </div>
             }
         </div>
