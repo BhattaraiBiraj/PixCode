@@ -8,6 +8,8 @@ export default function Retrieve(){
     const [imageUrl, setImageUrl] = useState("")
     const [message, setMessage] = useState("")
     const [error, setError] = useState("")
+
+    const API_URL = import.meta.env.VITE_API_URL;
     
     const handleCode = (e) =>{
         setCode(e.target.value);
@@ -16,7 +18,7 @@ export default function Retrieve(){
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        let res = await axios.get(`http://localhost:8080/api/image/${code}`)
+        let res = await axios.get(`${API_URL}/api/image/${code}`)
         setImageUrl(res.data.imageUrl);
         setImageFound(true)
         setMessage(res.data.msg)

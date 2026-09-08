@@ -9,6 +9,8 @@ export default function Form() {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false)
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleFile = (file) => {
     if (!file) return;
     setSelectedFile(file);
@@ -49,7 +51,7 @@ export default function Form() {
     const formdata = new FormData()
     formdata.append('image', selectedFile);
     setIsUploaded(true)
-    const res = await axios.post("http://localhost:8080/api/upload", formdata);
+    const res = await axios.post(`${API_URL}/api/upload`, formdata);
     setImgCode(res.data.code)
 
 
