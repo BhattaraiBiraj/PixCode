@@ -11,7 +11,7 @@ export default function Navbar () {
         <>
             <nav class="navbar navbar-expand-lg bg-body-tertiary border mb-5">
   <div class="container-fluid">
-    <Link class="navbar-brand ms-2 ms-md-5 me-2 me-md-4" to="/" ><img src="pixcode-logo.svg" className="navbar-logo"></img></Link>
+    <Link class="navbar-brand ms-2 ms-md-5 me-2 me-md-4" to="/"  onClick={()=>handleSelectedPage(0)}><img src="pixcode-logo.svg" className="navbar-logo"></img></Link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
