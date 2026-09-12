@@ -61,7 +61,7 @@ export default function Form() {
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(imgCode);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    setTimeout(() => setCopied(false), 5000);
   }
   return (
     <div className="d-flex justify-content-center upload-card">
