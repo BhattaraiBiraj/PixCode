@@ -21,7 +21,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="row text-center mt-5">
-                        <p className="text-muted">PixelCode &copy; 2026. All right reserved.</p>
+                        <p className="text-muted">PixelCode &copy; 2026. All rights reserved.</p>
                         <p className="text-muted">Developer : Biraj Bhattarai</p>
                     </div>
                 </div>

@@ -8,14 +8,16 @@ import Footer from './Footer'
 function App() {
 
   return (
-    <>
-    <Navbar />
-    <Routes>
-        <Route path="/" element={<Form />} />
-        <Route path="/retrieve" element={<Retrieve />} />
-    </Routes>
-    <Footer />
-    </>
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar />
+      <div className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<Form />} />
+          <Route path="/retrieve" element={<Retrieve />} />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
   )
 }
 
