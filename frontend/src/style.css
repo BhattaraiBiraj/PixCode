@@ -30,12 +30,54 @@
 
 .upload-card {
   max-width: 500px;
+  width: 100%;
   margin: 60px auto;
   padding: 32px;
   background: #f0f0f0;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  width: 100px;
+  max-width: 100%;
+}
+
+.dropzone {
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 40px auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 576px) {
+  .upload-card {
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  .navbar-logo {
+    width: 80px;
+  }
+
+  .dropzone {
+    margin: 24px auto;
+    padding: 12px;
+  }
+
+  .retrieve-img-box {
+    padding: 12px;
+  }
 }
 
 
@@ -128,10 +170,12 @@
   border: 2px dashed grey;
   border-radius: 8px;
   padding: 20px;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
   cursor: pointer;
   margin: 40px auto;
+  box-sizing: border-box;
 }
 
 .download-btn:hover{

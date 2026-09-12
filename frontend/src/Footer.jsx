@@ -6,12 +6,12 @@ export default function Footer() {
             <div className="border bg-light">
                 <div className="container">
                     <div className="row mt-3">
-                        <div className="col-5">
+                        <div className="col-12 col-md-5">
                             <img src="pixcode-logo.svg" style={{width:"120px"}} className="mb-3"></img>
                             <p className="lh-lg text-muted">This is a site where you can upload and retrieve the image anywhere in the world using the code.</p>
                         </div>
-                        <div className="col-2"></div>
-                        <div className="col-5">
+                        <div className="col-md-2"></div>
+                        <div className="col-12 col-md-5">
                             <h5 className="mb-4">Links</h5>
                             
                                 <p><Link to="/retrieve" className="text-decoration-none text-reset">Retrieve Image</Link></p>

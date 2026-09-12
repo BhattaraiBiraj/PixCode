@@ -79,19 +79,10 @@ export default function Form() {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
+          className="dropzone"
           style={{
             border: isDragging ? '2px dashed blue' : '2px dashed gray',
-            borderRadius: '8px',
-            padding: '20px',
-            width: '400px',
-            height: '400px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundColor: isDragging ? '#eef' : '#fafafa',
-            cursor: 'pointer',
-            margin: "40px auto"
           }}
         >
           {previewUrl ? (
