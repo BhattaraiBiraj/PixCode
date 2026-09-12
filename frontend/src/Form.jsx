@@ -8,6 +8,7 @@ export default function Form() {
   const [previewUrl, setPreviewUrl] = useState(null)
   const [isDragging, setIsDragging] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -56,6 +57,12 @@ export default function Form() {
 
 
   }
+
+  const handleCopyCode = async () => {
+    await navigator.clipboard.writeText(imgCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
   return (
     <div className="d-flex justify-content-center upload-card">
       <form onSubmit={handleSubmit}>
@@ -65,13 +72,12 @@ export default function Form() {
 
         <button type="submit" className="upload-btn" disabled={isUploaded || false}>Upload</button>
         {imgCode && <div>
-               <p style={{
-                border: "1px solid grey",
-                width:"50%",
-                margin:"30px auto 5px auto",
-                textCenter:"center",
-                fontSize:"20px"
-            }}><b>{imgCode}</b></p>
+               <div className="code-box">
+                <span className="code-text">{imgCode}</span>
+                <button type="button" className="copy-btn" onClick={handleCopyCode} aria-label="Copy code">
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+               </div>
                <p className="text-muted">Use this code to retrieve the image.</p>
             </div>}
         <label

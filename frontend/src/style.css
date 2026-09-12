@@ -113,6 +113,45 @@
   color: #666;
 }
 
+.code-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 30px auto 5px auto;
+  padding: 10px 12px 10px 20px;
+  background: #fff;
+  border: 1.5px solid rgb(40, 156, 66);
+  border-radius: 8px;
+}
+
+.code-text {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgb(40, 156, 66);
+}
+
+.copy-btn {
+  padding: 6px 14px;
+  background: rgb(40, 156, 66);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: rgb(33, 128, 54);
+}
+
 /* Primary Upload button */
 .upload-btn {
   display: block;
