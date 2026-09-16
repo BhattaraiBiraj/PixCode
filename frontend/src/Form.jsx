@@ -8,6 +8,7 @@ export default function Form() {
   const [previewUrl, setPreviewUrl] = useState(null)
   const [isDragging, setIsDragging] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false)
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -48,14 +49,20 @@ export default function Form() {
       alert("add the file");
       return;
     }
-
+    setIsLoading(true);
     const formdata = new FormData()
     formdata.append('image', selectedFile);
-    setIsUploaded(true)
-    const res = await axios.post(`${API_URL}/api/upload`, formdata);
-    setImgCode(res.data.code)
-
-
+    
+     try {
+      const res = await axios.post(`${API_URL}/api/upload`, formdata);
+      setImgCode(res.data.code);
+      setIsUploaded(true);
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const handleCopyCode = async () => {
@@ -70,7 +77,10 @@ export default function Form() {
         <input type="file" id="fileInput" className="file-input-hidden" accept="image/*" onChange={handleFileChange} />
         <span className="file-name">{selectedFile ? selectedFile.name : "No file chosen"}</span>
 
-        <button type="submit" className="upload-btn" disabled={isUploaded || false}>Upload</button>
+        <button type="submit" className="upload-btn" disabled={isUploaded || isLoading}>
+          {isLoading && <span className="spinner"></span>}
+  {isLoading ? "Uploading..." : isUploaded ? "Uploaded" : "Upload"}
+        </button>
         {imgCode && <div>
                <div className="code-box">
                 <span className="code-text">{imgCode}</span>
