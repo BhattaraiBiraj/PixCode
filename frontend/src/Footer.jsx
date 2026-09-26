@@ -14,14 +14,14 @@ export default function Footer() {
                         <div className="col-12 col-md-5">
                             <h5 className="mb-4">Links</h5>
                             
-                                <p><Link to="/retrieve" className="text-decoration-none text-reset">Retrieve Image</Link></p>
-                                <p><a href="https://github.com/bhattaraibiraj/pixcode" className="text-decoration-none text-reset" target="_blank">Source Code</a></p>
-                                <p><a href="https://github.com/bhattaraibiraj" className="text-decoration-none text-reset" target="_blank">Github</a></p>
+                                <p><Link to="/retrieve" className="und text-decoration-none text-reset">Retrieve Image</Link></p>
+                                <p><a href="https://github.com/bhattaraibiraj/pixcode" className="und text-decoration-none text-reset" target="_blank">Source Code</a></p>
+                                <p><a href="https://github.com/bhattaraibiraj" className="und text-decoration-none text-reset" target="_blank">Github</a></p>
                             
                         </div>
                     </div>
                     <div className="row text-center mt-5">
-                        <p className="text-muted">PixelCode &copy; 2026. All rights reserved.</p>
+                        <p className="text-muted">PixCode &copy; 2026. All rights reserved.</p>
                         <p className="text-muted">Developer : Biraj Bhattarai</p>
                     </div>
                 </div>
