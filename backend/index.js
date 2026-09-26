@@ -61,6 +61,12 @@ app.get("/", (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
+
+  const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-+=[\]\\;'`~/]).{6,}$/;
+  if (!password || !passwordRegex.test(password)) {
+    return res.status(400).json({ msg: "Password must be at least 6 characters and include a number and a special character" });
+  }
+
   const user = await User.findOne({ username: username });
 
   if (user) {
@@ -112,8 +118,21 @@ app.post("/api/upload", upload.single('image'), async (req, res) => {
     });
 
     const imageUrl = result.secure_url;
-    const code = hello();
-    const newImage = await Image.create({ code, imageUrl, user: userId });
+
+    let newImage;
+    const maxAttempts = 5;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const code = hello();
+      try {
+        newImage = await Image.create({ code, imageUrl, user: userId });
+        break;
+      } catch (err) {
+        const isDuplicateCode = err.code === 11000 && err.keyPattern?.code;
+        if (!isDuplicateCode || attempt === maxAttempts) {
+          throw err;
+        }
+      }
+    }
 
     res.status(201).json({ code: newImage.code });
   } catch (err) {

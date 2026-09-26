@@ -42,13 +42,18 @@ export default function Navbar() {
               <li class="nav-item">
                 <Link class="nav-link" to="/retrieve" onClick={() => handleSelectedPage(1)}><span className={`und ${selectedPage == 1 ? "fixedUnd" : ""}`}>Retrieve</span></Link>
               </li>
+              {username && (
+                <li class="nav-item">
+                  <Link class="nav-link" to="/history" onClick={() => handleSelectedPage(2)}><span className={`und ${selectedPage == 2 ? "fixedUnd" : ""}`}>History</span></Link>
+                </li>
+              )}
+            </ul>
+            <ul class="navbar-nav ms-auto align-items-lg-center">
               {username ? (
                 <>
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/history" onClick={() => handleSelectedPage(2)}><span className={`und ${selectedPage == 2 ? "fixedUnd" : ""}`}>History</span></Link>
-                  </li>
-                  <li class="nav-item">
-                    <span class="nav-link">Hi, {username}</span>
+                  <li class="nav-item d-flex align-items-center gap-2 me-lg-3">
+                    <span className="user-avatar">{username.charAt(0).toUpperCase()}</span>
+                    <span class="nav-link mb-0 p-0">Hi, {username}</span>
                   </li>
                   <li class="nav-item">
                     <button class="nav-link" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>Logout</button>

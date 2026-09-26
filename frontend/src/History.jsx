@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function History() {
   const [uploads, setUploads] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState(null);
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -39,6 +40,12 @@ export default function History() {
     fetchHistory();
   }, []);
 
+  const handleCopyCode = async (code, id) => {
+    await navigator.clipboard.writeText(code);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 5000);
+  };
+
   if (loading) return <p className='text-center'>Loading...</p>;
 
   return (
@@ -47,15 +54,23 @@ export default function History() {
       {uploads.length === 0 ? (
         <p>No uploads yet.</p>
       ) : (
-        <div className="d-flex flex-wrap gap-3 justify-content-center">
+        <div className="history-list">
           {uploads.map((upload) => (
-            <div key={upload._id} className="text-center" style={{ width: '150px' }}>
+            <div key={upload._id} className="history-row">
               <img
                 src={upload.imageUrl}
                 alt="upload"
-                style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
+                className="history-thumb"
               />
-              <p className="text-muted my-3">Code: {upload.code}</p>
+              <span className="history-code">{upload.code}</span>
+              <button
+                type="button"
+                className="copy-btn history-copy-btn"
+                onClick={() => handleCopyCode(upload.code, upload._id)}
+                aria-label="Copy code"
+              >
+                {copiedId === upload._id ? "Copied!" : "Copy"}
+              </button>
             </div>
           ))}
         </div>

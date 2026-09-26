@@ -36,11 +36,18 @@ export default function Login() {
         }
     }
     return (
-        <div>
+        <div className="auth-card">
+            <h2 className="auth-title">Welcome back</h2>
             <form onSubmit={handleSubmit}>
-                USsername: <input type="text" name="username" onChange={handleUsername}></input>
-                pass :<input type="password" name="password" onChange={handlePassword}></input>
-                <button type="submit">Login</button>
+                <div className="auth-field">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" name="username" className="auth-input" onChange={handleUsername} required />
+                </div>
+                <div className="auth-field">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name="password" className="auth-input" onChange={handlePassword} required />
+                </div>
+                <button type="submit" className="auth-btn">Login</button>
             </form>
         </div>
     )
