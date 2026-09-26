@@ -4,6 +4,9 @@ import Form from './Form'
 import Retrieve from './Retrieve'
 import Navbar from './Navbar';
 import Footer from './Footer'
+import Signup from './Signup';
+import Login from './Login'
+import History from './History'
 
 function App() {
 
@@ -14,6 +17,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Form />} />
           <Route path="/retrieve" element={<Retrieve />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </div>
       <Footer />

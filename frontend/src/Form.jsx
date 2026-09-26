@@ -52,9 +52,11 @@ export default function Form() {
     setIsLoading(true);
     const formdata = new FormData()
     formdata.append('image', selectedFile);
-    
-     try {
-      const res = await axios.post(`${API_URL}/api/upload`, formdata);
+
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    try {
+      const res = await axios.post(`${API_URL}/api/upload`, formdata, { headers });
       setImgCode(res.data.code);
       setIsUploaded(true);
     } catch (err) {
@@ -79,19 +81,19 @@ export default function Form() {
 
         <button type="submit" className="upload-btn" disabled={isUploaded || isLoading}>
           {isLoading && <span className="spinner"></span>}
-  {isLoading ? "Uploading..." : isUploaded ? "Uploaded" : "Upload"}
+          {isLoading ? "Uploading..." : isUploaded ? "Uploaded" : "Upload"}
         </button>
         {imgCode && <div>
-               <div className="code-box">
-                <span className="code-text">{imgCode}</span>
-                <button type="button" className="copy-btn" onClick={handleCopyCode} aria-label="Copy code">
-                  {copied ? "Copied!" : "Copy"}
-                </button>
-               </div>
-               <p className="text-muted">Use this code to retrieve the image.</p>
-            </div>}
+          <div className="code-box">
+            <span className="code-text">{imgCode}</span>
+            <button type="button" className="copy-btn" onClick={handleCopyCode} aria-label="Copy code">
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
+          <p className="text-muted">Use this code to retrieve the image.</p>
+        </div>}
         <label
-        htmlFor="fileInput"
+          htmlFor="fileInput"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}

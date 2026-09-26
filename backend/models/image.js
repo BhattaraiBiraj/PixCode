@@ -10,6 +10,11 @@ const imageSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  user: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'user', 
+    default: null 
+  },
   createdAt: {
     type: Date,
     default: Date.now,
