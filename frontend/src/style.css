@@ -245,7 +245,9 @@
 }
 
 .upload-btn:hover {
-  background: rgb(40, 156, 66);
+  background: white;
+  color:  rgb(40, 156, 66);
+  border: 1px solid  rgb(40, 156, 66);
 }
 
 .upload-btn:disabled {
