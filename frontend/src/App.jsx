@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Signup from './Signup';
 import Login from './Login'
 import History from './History'
+import ForgotPassword from './ForgotPassword';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/history" element={<History />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </div>
       <Footer />

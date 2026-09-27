@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 export default function Login() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-  const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleUsername = (e) => {
         setUsername(e.target.value)
@@ -30,7 +31,7 @@ export default function Login() {
                 alert(res.data.msg);
             }
         }
-        catch (err){
+        catch (err) {
             console.error(err);
             alert("Login failed");
         }
@@ -47,6 +48,7 @@ export default function Login() {
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" name="password" className="auth-input" onChange={handlePassword} required />
                 </div>
+                <p><Link to="/forgot-password" style={{ color: " rgb(40, 156, 66)", fontSize: "14px", fontWeight: "500", textDecoration: "none" }}>Forgot password?</Link></p>
                 <button type="submit" className="auth-btn">Login</button>
             </form>
         </div>

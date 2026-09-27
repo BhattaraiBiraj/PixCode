@@ -53,7 +53,7 @@ export default function Navbar() {
                 <>
                   <li class="nav-item d-flex align-items-center gap-2 me-lg-3">
                     <span className="user-avatar">{username.charAt(0).toUpperCase()}</span>
-                    <span class="nav-link mb-0 p-0">Hi, {username}</span>
+                    <span class="nav-link mb-0 p-0">{username}</span>
                   </li>
                   <li class="nav-item">
                     <button class="nav-link" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>Logout</button>

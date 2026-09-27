@@ -5,14 +5,20 @@ export default function Signup() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [pin, setPin] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
 
     const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-+=[\]\\;'`~/]).{6,}$/;
+    const pinRegex = /^\d{4}$/;
 
     const handleUsername = (e) => {
         setUsername(e.target.value)
+    }
+
+    const handlePin = (e) => {
+        setPin(e.target.value)
     }
 
     const handlePassword = (e) => {
@@ -31,21 +37,25 @@ export default function Signup() {
             setPasswordError('Password must be at least 6 characters and include a number and a special character')
             return
         }
-       try {
-        const res = await axios.post(`${API_URL}/register`, { username, password });
-
-        if (res.data.token) {
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('username', username);
-            navigate('/');
-            window.location.reload();
-        } else {
-            alert(res.data.msg);
+        if (!pinRegex.test(pin)) {
+            alert('PIN must be exactly 4 digits')
+            return
         }
-    } catch (err) {
-        console.error(err);
-        alert("Something went wrong");
-    }
+        try {
+            const res = await axios.post(`${API_URL}/register`, { username, password, pin });
+
+            if (res.data.token) {
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('username', username);
+                navigate('/');
+                window.location.reload();
+            } else {
+                alert(res.data.msg);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Something went wrong");
+        }
     }
     return (
         <div className="auth-card">
@@ -70,6 +80,20 @@ export default function Signup() {
                     ) : (
                         <p className="auth-hint">At least 6 characters, with a number and a special character</p>
                     )}
+                </div>
+                <div className="auth-field">
+                    <label htmlFor="pin">Pin</label>
+                    <input
+                        type="text"
+                        id="pin"
+                        name="pin"
+                        className="auth-input"
+                        onChange={handlePin}
+                        maxLength={4}
+                        inputMode="numeric"
+                        required
+                    />
+                    <p className="auth-hint">Must be exactly 4 digits (numbers only)</p>
                 </div>
                 <button type="submit" className="auth-btn">Sign up</button>
             </form>

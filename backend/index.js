@@ -60,11 +60,16 @@ app.get("/", (req, res) => {
 })
 
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, pin } = req.body;
 
   const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-+=[\]\\;'`~/]).{6,}$/;
   if (!password || !passwordRegex.test(password)) {
     return res.status(400).json({ msg: "Password must be at least 6 characters and include a number and a special character" });
+  }
+
+  const pinRegex = /^\d{4}$/;
+  if (!pin || !pinRegex.test(pin)) {
+    return res.status(400).json({ msg: "PIN must be exactly 4 digits" });
   }
 
   const user = await User.findOne({ username: username });
@@ -73,8 +78,9 @@ app.post("/register", async (req, res) => {
     return res.json({ msg: "user already exist" });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  let result = await User.create({ username, password: hashedPassword })
-   const token = generateToken(result); 
+  const hashedPin = await bcrypt.hash(pin, 10)
+  let result = await User.create({ username, password: hashedPassword, pin: hashedPin })
+  const token = generateToken(result);
   res.json({ msg: "registered sucessfully", token })
 })
 
@@ -99,15 +105,15 @@ app.post("/api/upload", upload.single('image'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-     const authHeader = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     let userId = null;
-     if (token) {
+    if (token) {
       try {
         const decoded = jwt.verify(token, secret);
         userId = decoded.userId;
       } catch (err) {
-        userId = null; 
+        userId = null;
       }
     }
     const result = await new Promise((resolve, reject) => {
@@ -118,19 +124,13 @@ app.post("/api/upload", upload.single('image'), async (req, res) => {
     });
 
     const imageUrl = result.secure_url;
-
     let newImage;
-    const maxAttempts = 5;
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    while (!newImage) {
       const code = hello();
       try {
         newImage = await Image.create({ code, imageUrl, user: userId });
-        break;
       } catch (err) {
-        const isDuplicateCode = err.code === 11000 && err.keyPattern?.code;
-        if (!isDuplicateCode || attempt === maxAttempts) {
-          throw err;
-        }
+        if (err.code !== 11000) throw err; // only retry on duplicate code, anything else still fails properly
       }
     }
 
@@ -163,3 +163,48 @@ app.get("/api/history", verifyToken, async (req, res) => {
     res.status(500).json({ msg: "Failed to fetch history" });
   }
 });
+
+app.post("/verify-pin", async (req,res)=>{
+  const {username, pin} = req.body;
+  const userGivenPin = pin;
+  let user = await User.findOne({username : username})
+  
+  if(!user){
+    return res.json({msg: "Invalid Username or Pin"})
+  }
+
+  const realPin = user.pin;
+
+  let isValidPin = await bcrypt.compare(userGivenPin, realPin)
+
+  if(!isValidPin){
+    return res.json({msg: "Invalid Username or Pin"})
+  }
+
+  const verified = true;
+  res.json({verified})
+})
+
+app.post("/reset-password", async (req,res)=>{
+  const {username, newPassword, pin} = req.body;
+  const userGivenPin = pin;
+  let user = await User.findOne({username : username})
+  
+  if(!user){
+    return res.json({msg: "Invalid Username or Pin"})
+  }
+
+  const realPin = user.pin;
+  
+  let isValidPin = await bcrypt.compare(userGivenPin, realPin)
+
+  if(!isValidPin){
+    return res.json({msg: "Invalid Username or Pin"})
+  }
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10)
+  user.password = newHashedPassword;
+  await user.save()
+  
+  res.json({msg:"Password Changed Successfully"})
+})
