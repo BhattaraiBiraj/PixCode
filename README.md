@@ -98,7 +98,7 @@ VITE_API_URL=http://localhost:8080
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/pixcode.git
+git clone https://github.com/bhattaraibiraj/pixcode.git
 cd pixcode
 ```
 
