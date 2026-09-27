@@ -1,4 +1,6 @@
-# 🖼️ PixCode
+<p align="center">
+  <img src="frontend/public/pixcode-logo.svg" alt="PixCode Logo" width="170"/>
+</p>
 
 **PixCode** is a simple web app for sharing images across devices using a unique code — no cables, no accounts required (though creating one gets you upload history). Upload an image, get a short code, and enter that code on any other device to retrieve it instantly.
 
